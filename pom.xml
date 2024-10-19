@@ -92,7 +92,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>java.dio.bootcamp.PublishedAPI.PublishedApiApplication</mainClass>
+                    <mainClass>dio.bootcamp.PublishedAPI.PublishedApiApplication</mainClass>
                     <layout>JAR</layout>
                 </configuration>
             </plugin>
