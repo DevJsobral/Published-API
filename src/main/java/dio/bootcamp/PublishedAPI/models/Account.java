@@ -22,7 +22,8 @@ public class Account {
     private String agency;
 
     @Column(precision = 13, scale = 2)
-    private BigDecimal balance;
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private BigDecimal balance = BigDecimal.ZERO;
 
     @Column(name = "acc_limit", precision = 13, scale = 2)
     private BigDecimal limit;

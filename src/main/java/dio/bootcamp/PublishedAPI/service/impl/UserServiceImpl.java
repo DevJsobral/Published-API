@@ -8,6 +8,7 @@ import dio.bootcamp.PublishedAPI.service.exceptions.BusinessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -25,6 +26,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findById(Long id) {
         return userRepository.findById(id).orElseThrow(NoSuchElementException::new);
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        List<User> usersList = userRepository.findAll();
+        if (usersList.isEmpty()) {
+            throw new NoSuchElementException("There's any users saved on our data.");
+        } else {
+            return usersList;
+        }
     }
 
     @Override
