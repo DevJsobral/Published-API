@@ -12,8 +12,6 @@ import static java.util.Collections.emptyList;
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toList;
 
-@Getter
-@Setter
 public record UserUpdateDTO(
         Long id,
         String name,
