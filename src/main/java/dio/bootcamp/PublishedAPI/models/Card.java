@@ -1,6 +1,7 @@
 package dio.bootcamp.PublishedAPI.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import dio.bootcamp.PublishedAPI.util.CartaoUtils;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,9 +17,15 @@ public class Card {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
 
-    @Column( unique = true)
+    @Column(unique = true)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String number;
 
     @Column(precision = 13, scale = 2, name = "card_limit")
     private BigDecimal limit;
+
+    @PrePersist
+    public void gerarNumeroCartao() {
+        this.number = CartaoUtils.gerarNumeroCartao();
+    }
 }

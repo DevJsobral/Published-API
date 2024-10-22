@@ -19,7 +19,6 @@ public class Account {
     @Column(unique = true)
     private String number;
 
-    @Column(unique = true)
     private String agency;
 
     @Column(precision = 13, scale = 2)
