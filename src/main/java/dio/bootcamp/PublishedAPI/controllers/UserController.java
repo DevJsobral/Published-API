@@ -52,10 +52,10 @@ public class UserController {
             @ApiResponse(responseCode = "201", description = "Created"),
             @ApiResponse(responseCode = "422", description = "UNPROCESSABLE ENTITY")})
     public ResponseEntity<User> updateById(@PathVariable Long id, @RequestBody UserUpdateDTO userUpdateDTO) {
-        User updatedUser = userService.updateUserById(id, userUpdateDTO);
+        var updatedUser = userService.updateUserById(id, userUpdateDTO.toModel());
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(userUpdateDTO.getId())
+                .buildAndExpand(userUpdateDTO.toModel().getId())
                 .toUri();
         return ResponseEntity.created(location).body(updatedUser);
     }

@@ -4,11 +4,14 @@ import dio.bootcamp.PublishedAPI.dto.UserUpdateDTO;
 import dio.bootcamp.PublishedAPI.models.User;
 import dio.bootcamp.PublishedAPI.repository.UserRepository;
 import dio.bootcamp.PublishedAPI.service.UserService;
+import dio.bootcamp.PublishedAPI.service.exceptions.BusinessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
+
+import static java.util.Optional.ofNullable;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -26,6 +29,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(User userToCreate) {
+        ofNullable(userToCreate).orElseThrow(() -> new BusinessException("User to create must not be null."));
+        ofNullable(userToCreate.getAccount()).orElseThrow(() -> new BusinessException("User account must not be null."));
         if (userRepository.existsByAccountNumber(userToCreate.getAccount().getNumber())) {
             throw new IllegalArgumentException("Account number already exists");
         }
@@ -37,15 +42,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUserById(Long id, UserUpdateDTO userUpdateDTO) {
+    public User updateUserById(Long id, User userToUpdate) {
         Optional<User> searchUser = userRepository.findById(id);
         if (searchUser.isEmpty()) {
             throw new NoSuchElementException();
         } else {
             User userFound = searchUser.get();
-            userFound.setName(userUpdateDTO.getName());
-            userFound.setFeatures(userUpdateDTO.getFeatures());
-            userFound.setNews(userUpdateDTO.getNews());
+            userFound.setName(userToUpdate.getName());
+            userFound.setFeatures(userToUpdate.getFeatures());
+            userFound.setNews(userToUpdate.getNews());
             return userRepository.save(userFound);
         }
     }
