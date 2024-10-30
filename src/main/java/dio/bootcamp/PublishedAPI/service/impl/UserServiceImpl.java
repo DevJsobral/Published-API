@@ -1,10 +1,10 @@
 package dio.bootcamp.PublishedAPI.service.impl;
 
-import dio.bootcamp.PublishedAPI.dto.UserUpdateDTO;
 import dio.bootcamp.PublishedAPI.models.User;
 import dio.bootcamp.PublishedAPI.repository.UserRepository;
 import dio.bootcamp.PublishedAPI.service.UserService;
 import dio.bootcamp.PublishedAPI.service.exceptions.BusinessException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +19,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
+    @Autowired
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -32,12 +33,13 @@ public class UserServiceImpl implements UserService {
     public List<User> getAllUsers() {
         List<User> usersList = userRepository.findAll();
         if (usersList.isEmpty()) {
-            throw new NoSuchElementException("There's any users saved on our data.");
+            throw new NoSuchElementException("There's any user saved on our data.");
         } else {
             return usersList;
         }
     }
 
+    @Transactional
     @Override
     public User createUser(User userToCreate) {
         ofNullable(userToCreate).orElseThrow(() -> new BusinessException("User to create must not be null."));
@@ -52,6 +54,7 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(id);
     }
 
+    @Transactional
     @Override
     public User updateUserById(Long id, User userToUpdate) {
         Optional<User> searchUser = userRepository.findById(id);
@@ -60,8 +63,8 @@ public class UserServiceImpl implements UserService {
         } else {
             User userFound = searchUser.get();
             userFound.setName(userToUpdate.getName());
-            userFound.setFeatures(userToUpdate.getFeatures());
-            userFound.setNews(userToUpdate.getNews());
+            userFound.setUsername(userToUpdate.getUsername());
+            userFound.setPassword(userToUpdate.getPassword());
             return userRepository.save(userFound);
         }
     }

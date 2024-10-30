@@ -24,7 +24,4 @@ public class Account {
     @Column(precision = 13, scale = 2)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private BigDecimal balance = BigDecimal.ZERO;
-
-    @Column(name = "acc_limit", precision = 13, scale = 2)
-    private BigDecimal limit;
 }

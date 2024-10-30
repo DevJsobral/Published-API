@@ -41,7 +41,7 @@ public class UserController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Created"),
             @ApiResponse(responseCode = "422", description = "UNPROCESSABLE ENTITY")})
-    @Operation(summary = "Create User", description = "Fill the required fields with the user information to create it.")
+    @Operation(summary = "Create User", description = "Fill the required fields with the user information to create it, your card number will be automatically generated.")
     public ResponseEntity<User> createUser(@RequestBody User userToCreate){
         var createdUser = userService.createUser(userToCreate);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()

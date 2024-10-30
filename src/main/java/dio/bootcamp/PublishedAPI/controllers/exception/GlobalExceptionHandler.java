@@ -3,7 +3,6 @@ package dio.bootcamp.PublishedAPI.controllers.exception;
 import dio.bootcamp.PublishedAPI.service.exceptions.BusinessException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -23,7 +22,10 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(NoSuchElementException.class)
     public ResponseEntity<String> handleNotFoundExcep(NoSuchElementException notFoundExcep) {
-        return new ResponseEntity<>("Resource ID not found", HttpStatus.NOT_FOUND);
+        String message = notFoundExcep.getMessage() != null && !notFoundExcep.getMessage().isEmpty()
+                ? notFoundExcep.getMessage()
+                : "Resource ID not found";
+        return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
