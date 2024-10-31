@@ -61,10 +61,10 @@ https://published-api-production.up.railway.app/
 classDiagram
   class User {
     -String name
+    -String username
+    -String password 
     -Account account
-    -Feature[] features
     -Card card
-    -News[] news
   }
 
   class Account {
