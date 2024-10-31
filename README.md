@@ -12,6 +12,13 @@ Como é uma API para fins de estudo e portfólio, todas as rotas são abertas à
 - **Gerenciar saldo**: Endpoints para saque, depósito e transferência entre contas.
 - **Documentação da API**: Swagger disponível para visualização e teste das requisições.
 
+## Acesso à API
+
+A Api está disponibilizada em nuvem pelo Railway na seguinte URL:
+```
+https://published-api-production.up.railway.app/
+```
+
 ## Tecnologias Utilizadas
 
 - **Java 17**
