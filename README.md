@@ -1,6 +1,5 @@
 # Published-API
 
-# Published-API
 
 Published-API é uma aplicação desenvolvida em Spring Boot que permite gerenciar usuários, sua conta e cartão. Através de endpoints, é possível realizar operações bancárias, como saque, depósito e transferência, alterando o saldo das contas associadas.
 
